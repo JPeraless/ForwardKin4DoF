@@ -1,0 +1,54 @@
+
+Rotation Matrices:
+
+    r = theta1; s = theta2; t = theta3; u = theta4
+        
+    r0_2 = [
+        [cos(r)cos(s),    -cos(r)sin(s),   0],
+        [sin(r)cos(s),    -sin(r)sin(s),   -cos(r)],
+        [sin(s),          cos(s),          0]
+    ]
+
+    r2_4 = [
+        [],
+        [],
+        []
+    ]
+
+    r0_3 = [
+        [-cos(r)sin(s)cos(t) - cos(r)cos(s)sin(t),    0,           cos(r)cos(s)cos(t) - cos(r)sin(s)sin(t)],
+        [sin(r)sin(s)(-cos(t)) - sin(r)cos(s)sin(t),  -cos(r),     sin(r)cos(s)cos(t) - sin(r)sin(s)sin(t)],
+        [cos(s)cos(t) - sin(s)sin(t),                 0,           sin(s)cos(t) + cos(s)sin(t)]
+    ]
+
+    r0_4 = [
+        [],
+        [],
+        []
+    ]
+
+Displacement Vectors:
+
+    d0_1 = [    
+        [lengths[0] * np.cos(angles[0])],
+        [lengths[0] * np.sin(angles[0])],
+        [lengths[0]]
+    ]
+
+    d1_2 = [
+        [lengths[1] * np.cos(angles[1])],
+        [lengths[1] * np.sin(angles[1])],
+        [0]
+    ]
+
+    d2_3 = [
+        [0],
+        [0],
+        [0]
+    ]
+
+    d3_4 = [
+        [0],
+        [0],
+        [lengths[3] + lengths[4]]
+    ]    

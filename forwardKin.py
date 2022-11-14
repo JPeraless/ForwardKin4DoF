@@ -15,70 +15,26 @@ def main():
 
     # Convert each angle into radians
     angles[0] = (angles[0]/180.0) * np.pi
-    angles[0] = (angles[1]/180.0) * np.pi
+    angles[1] = (angles[1]/180.0) * np.pi
     angles[2] = (angles[2]/180.0) * np.pi
     angles[3] = (angles[3]/180.0) * np.pi
 
-    # Rotation matrix frame 1 on 0
-    r0_1 = [
-        [np.cos(angles[0]),     0,              0                   ],
-        [np.sin(angles[0]),     0,              -np.cos(angles[0])  ],
-        [0,                     1,              0                   ]]
-
-    # Rotation matrix frame 2 on 1
-    r1_2 = [
-        [np.cos(angles[1]),     -np.sin(angles[1]),     0           ],
-        [np.sin(angles[1]),     np.cos(angles[1]),      0           ],
-        [0,                     0,                      1           ]]
-
-    # Rotation matrix frame 3 on 2
-    r2_3 = [
-        [-np.sin(angles[2]),    0,              np.cos(angles[2])   ],
-        [np.cos(angles[2]),     0,              np.sin(angles[2])   ],
-        [0,                     1,              0                   ]]
-
-    # Rotation matrix frame 4 on 3
-    r3_4 = [
-        [np.cos(angles[3]),     -np.sin(angles[3]),     0           ],
-        [np.sin(angles[3]),     np.cos(angles[3]),      0           ],
-        [0,                     0,                      1           ]]
-    
-    # Rotation matrix frame 2 on 0
-    r0_2 = np.dot(r0_1, r1_2)
-
-    # Rotation matrix frame 4 on 2
-    r2_4 = np.dot(r2_3, r3_4)
-
+    r = angles[0]; s = angles[1]; t = angles[2]; u = angles[3]
     # Final rotation matrix (end-effector on base frame)
-    r0_4 = np.dot(r0_2, r2_4)
+    r0_4 = [
+        [cos(u)(-cos(r)sin(s)cos(t) - cos(r)cos(s)sin(t)),                      sin(u)(-(-cos(r)sin(s)cos(t) - cos(r)cos(s)sin(t))),                    cos(r)cos(s)cos(t) - cos(r)sin(s)sin(t)],
+        [cos(u)(sin(r)sin(s)(-cos(t)) - sin(r)cos(s)sin(t)) - cos(r)sin(u),     -sin(u)(sin(r)sin(s)(-cos(t)) - sin(r)cos(s)sin(t)) - cos(r)cos(u),     sin(r)cos(s)cos(t) - sin(r)sin(s)sin(t)],
+        [cos(u)(cos(s)cos(t) - sin(s)sin(t)),                                   sin(u)(-(cos(s)cos(t) - sin(s)sin(t))),                                 sin(s)cos(t) + cos(s)sin(t)]
+    ]
+
+
+    
+
 
     # Print resulting matrix
-    print("\n === r0_4 ===")
+    print("\n===== r0_4 =====")
     print(np.matrix(r0_4))
-
-    d0_1 = [    
-        [lengths[0] * np.cos(angles[0])],
-        [lengths[0] * np.sin(angles[0])],
-        [lengths[0]]
-    ]
-
-    d1_2 = [
-        [lengths[1] * np.cos(angles[1])],
-        [lengths[1] * np.sin(angles[1])],
-        [0]
-    ]
-
-    d2_3 = [
-        [0],
-        [0],
-        [0]
-    ]
-
-    d3_4 = [
-        [0],
-        [0],
-        [lengths[3] + lengths[4]]
-    ]    
+    print("\n================")
 
 
 # rotations contains the rotation matrices of the rover
@@ -115,8 +71,9 @@ def homogeneousMatrices(rotations, vectors):
     h0_4 = np.dot(h0_2, h2_4)
 
     # Print resulting matrix
-    print("\n === h0_4 ===")
+    print("\n===== h0_4 =====")
     print(np.matrix(h0_4))
+    print("\n================")
 
 # ===========================================================================
 
@@ -128,7 +85,7 @@ def homogeneousMatrices(rotations, vectors):
 # lengths is an array with the values in cm of each link
 def denavitHartenberg(angles, lengths):
     """
-    Sketch of the D-H parameter table
+    D-H parameter table for the manipulator
 
         THETA    ||    ALPHA    ||    R    ||    D
 
@@ -174,8 +131,9 @@ def denavitHartenberg(angles, lengths):
     h0_4 = np.dot(h0_2, h2_4)
 
     # Print resulting matrix
-    print("\n === h0_5 ===")
+    print("\n===== h0_4 =====")
     print(np.matrix(h0_4))
+    print("\n================")
 
 
 if __name__ == "__main__":
