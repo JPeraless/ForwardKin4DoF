@@ -14,22 +14,17 @@ def main():
     angles = [0, 0, 0, 0]
 
     # Convert each angle into radians
-    angles[0] = (angles[0]/180.0) * np.pi
-    angles[1] = (angles[1]/180.0) * np.pi
-    angles[2] = (angles[2]/180.0) * np.pi
-    angles[3] = (angles[3]/180.0) * np.pi
+    r = (angles[0]/180.0) * np.pi
+    s = (angles[1]/180.0) * np.pi
+    t = (angles[2]/180.0) * np.pi
+    u = (angles[3]/180.0) * np.pi
 
-    r = angles[0]; s = angles[1]; t = angles[2]; u = angles[3]
     # Final rotation matrix (end-effector on base frame)
     r0_4 = [
-        [cos(u)(-cos(r)sin(s)cos(t) - cos(r)cos(s)sin(t)),                      sin(u)(-(-cos(r)sin(s)cos(t) - cos(r)cos(s)sin(t))),                    cos(r)cos(s)cos(t) - cos(r)sin(s)sin(t)],
-        [cos(u)(sin(r)sin(s)(-cos(t)) - sin(r)cos(s)sin(t)) - cos(r)sin(u),     -sin(u)(sin(r)sin(s)(-cos(t)) - sin(r)cos(s)sin(t)) - cos(r)cos(u),     sin(r)cos(s)cos(t) - sin(r)sin(s)sin(t)],
-        [cos(u)(cos(s)cos(t) - sin(s)sin(t)),                                   sin(u)(-(cos(s)cos(t) - sin(s)sin(t))),                                 sin(s)cos(t) + cos(s)sin(t)]
+        [np.cos(u)*(-np.cos(r)*np.sin(s)*np.cos(t) - np.cos(r)*np.cos(s)*np.sin(t)),                            np.sin(u)*-(-np.cos(r)*np.sin(s)*np.cos(t) - np.cos(r)*np.cos(s)*np.sin(t)),                            np.cos(r)*np.cos(s)*np.cos(t) - np.cos(r)*np.sin(s)*np.sin(t)],
+        [np.cos(u)*(np.sin(r)*np.sin(s)*(-np.cos(t)) - np.sin(r)*np.cos(s)*np.sin(t)) - np.cos(r)*np.sin(u),    -np.sin(u)*(np.sin(r)*np.sin(s)*(-np.cos(t)) - np.sin(r)*np.cos(s)*np.sin(t)) - np.cos(r)*np.cos(u),    np.sin(r)*np.cos(s)*np.cos(t) - np.sin(r)*np.sin(s)*np.sin(t)],
+        [np.cos(u)*(np.cos(s)*np.cos(t) - np.sin(s)*np.sin(t)),                                                 np.sin(u)*(-(np.cos(s)*np.cos(t) - np.sin(s)*np.sin(t))),                                               np.sin(s)*np.cos(t) + np.cos(s)*np.sin(t)]
     ]
-
-
-    
-
 
     # Print resulting matrix
     print("\n===== r0_4 =====")
