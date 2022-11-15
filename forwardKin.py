@@ -1,3 +1,5 @@
+from numpy import cos
+from numpy import sin
 import numpy as np
 
 #############################################################################
@@ -19,11 +21,21 @@ def main():
     t = (angles[2]/180.0) * np.pi
     u = (angles[3]/180.0) * np.pi
 
+    a = lengths[0]; b = lengths[1]; c = lengths[2]; d = lengths[3]; e = lengths[4]
+
     # Final rotation matrix (end-effector on base frame)
     r0_4 = [
-        [np.cos(u)*(-np.cos(r)*np.sin(s)*np.cos(t) - np.cos(r)*np.cos(s)*np.sin(t)),                            np.sin(u)*-(-np.cos(r)*np.sin(s)*np.cos(t) - np.cos(r)*np.cos(s)*np.sin(t)),                            np.cos(r)*np.cos(s)*np.cos(t) - np.cos(r)*np.sin(s)*np.sin(t)],
-        [np.cos(u)*(np.sin(r)*np.sin(s)*(-np.cos(t)) - np.sin(r)*np.cos(s)*np.sin(t)) - np.cos(r)*np.sin(u),    -np.sin(u)*(np.sin(r)*np.sin(s)*(-np.cos(t)) - np.sin(r)*np.cos(s)*np.sin(t)) - np.cos(r)*np.cos(u),    np.sin(r)*np.cos(s)*np.cos(t) - np.sin(r)*np.sin(s)*np.sin(t)],
-        [np.cos(u)*(np.cos(s)*np.cos(t) - np.sin(s)*np.sin(t)),                                                 np.sin(u)*(-(np.cos(s)*np.cos(t) - np.sin(s)*np.sin(t))),                                               np.sin(s)*np.cos(t) + np.cos(s)*np.sin(t)]
+        [cos(u)*(-cos(r)*sin(s)*cos(t) - cos(r)*cos(s)*sin(t)),                     sin(u)*(-(-cos(r)*sin(s)*cos(t) - cos(r)*cos(s)*sin(t))),                   cos(r)*cos(s)*cos(t) - cos(r)*sin(s)*sin(t)],
+        [cos(u)*(sin(r)*sin(s)*(-cos(t)) - sin(r)*cos(s)*sin(t)) - cos(r)*sin(u),   -sin(u)*(sin(r)*sin(s)*(-cos(t)) - sin(r)*cos(s)*sin(t)) - cos(r)*cos(u),   sin(r)*cos(s)*cos(t) - sin(r)*sin(s)*sin(t)],
+        [cos(u)*(cos(s)*cos(t) - sin(s)*sin(t)),                                    sin(u)*(-(cos(s)*cos(t) - sin(s)*sin(t))),                                  sin(s)*cos(t) + cos(s)*sin(t)]
+    ]
+
+    # Homogenous matrix frame 4 on 0
+    h0_4 = [
+        [cos(u)*(-cos(r)*sin(s)*cos(t) - cos(r)*cos(s)*sin(t)),                     sin(u)*(-(-cos(r)*sin(s)*cos(t) - cos(r)*cos(s)*sin(t))),                   cos(r)*cos(s)*cos(t) - cos(r)*sin(s)*sin(t),        b * cos(r) + c * cos(r)*cos(s) + (d + e)*(cos(r)*cos(s)*cos(t) - cos(r)*sin(s)*sin(t))],
+        [cos(u)*(sin(r)*sin(s)*(-cos(t)) - sin(r)*cos(s)*sin(t)) - cos(r)*sin(u),   -sin(u)*(sin(r)*sin(s)*(-cos(t)) - sin(r)*cos(s)*sin(t)) - cos(r)*cos(u),   sin(r)*cos(s)*cos(t) - sin(r)*sin(s)*sin(t),        b * sin(r) + c * sin(r)*cos(s) + (d + e)*(sin(r)*cos(s)*cos(t) - sin(r)*sin(s)*sin(t))],
+        [cos(u)*(cos(s)*cos(t) - sin(s)*sin(t)),                                    sin(u)*(-(cos(s)*cos(t) - sin(s)*sin(t))),                                  sin(s)*cos(t) + cos(s)*sin(t),                      a + c * sin(s) + (d + e)*(sin(s)*cos(t) + cos(s)*sin(t))],
+        [0,                                                                         0,                                                                          0,                                                  1]
     ]
 
     # Print resulting matrix
@@ -31,7 +43,7 @@ def main():
     print(np.matrix(r0_4))
     print("\n================")
 
-
+'''
 # rotations contains the rotation matrices of the rover
 # vectors contains the displacement vectors of the rover
 def homogeneousMatrices(rotations, vectors):
@@ -52,10 +64,6 @@ def homogeneousMatrices(rotations, vectors):
     h3_4 = np.concatenate((rotations[3], vectors[3]), 1)
     h3_4 = np.concatenate((h3_4, [[0, 0, 0, 1]]), 0)
 
-    # Homogenous matrix frames 4 - 5
-    h4_5 = np.concatenate((rotations[4], vectors[4]), 1)
-    h4_5 = np.concatenate((h4_5, [[0, 0, 0, 1]]), 0)
-
     # Homogenous matrix frames 0 - 2
     h0_2 = np.dot(h0_1, h1_2)
 
@@ -69,7 +77,7 @@ def homogeneousMatrices(rotations, vectors):
     print("\n===== h0_4 =====")
     print(np.matrix(h0_4))
     print("\n================")
-
+'''
 # ===========================================================================
 
 # DIFFERENT APPROACHES TO GET HOMOGENOUS TRANSFORMATION MATRICES (SOLVE FK)
