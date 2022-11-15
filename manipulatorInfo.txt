@@ -117,24 +117,24 @@ Homogenous Matrices:
 
     # Homogenous matrix frame 2 on 0
     h0_2 = [
-        [],
-        [],
-        [],
-        [0, 0, 0, 1]
+        [cos(r)cos(s),      -cos(r)sin(s),      0,          b * cos(r) + c * cos(r)cos(s)],
+        [sin(r)cos(s),      -sin(r)sin(s),      -cos(r),    b * sin(r) + c * sin(r)cos(s)],
+        [sin(s),            cos(s),             0,          a + c * sin(s)],
+        [0,                 0,                  0,          1]
     ]
 
     #Homogenous matrix frame 3 on 0
     h0_3 = [
-        [],
-        [],
-        [],
-        [0, 0, 0, 1]
+        [-cos(r)sin(s)cos(t) - cos(r)cos(s)sin(t),      0,          cos(r)cos(s)cos(t) - cos(r)sin(s)sin(t),    b * cos(r) + c * cos(r)cos(s)],
+        [sin(r)sin(s)(-cos(t)) - sin(r)cos(s)sin(t),    -cos(r),    sin(r)cos(s)cos(t) - sin(r)sin(s)sin(t),    b * sin(r) + c * sin(r)cos(s)],
+        [cos(s)cos(t) - sin(s)sin(t),                   0,          sin(s)cos(t) + cos(s)sin(t),                a + c * sin(s)],
+        [0,                                             0,          0,                                          1]
     ]
 
     # Homogenous matrix frame 4 on 0
     h0_4 = [
-        [],
-        [],
-        [],
-        [0, 0, 0, 1]
+        [cos(u)(-cos(r)sin(s)cos(t) - cos(r)cos(s)sin(t)),                  sin(u)(-(-cos(r)sin(s)cos(t) - cos(r)cos(s)sin(t))),                    cos(r)cos(s)cos(t) - cos(r)sin(s)sin(t),        b * cos(r) + c * cos(r)cos(s) + (d + e)(cos(r)cos(s)cos(t) - cos(r)sin(s)sin(t))],
+        [cos(u)(sin(r)sin(s)(-cos(t)) - sin(r)cos(s)sin(t)) - cos(r)sin(u), -sin(u)(sin(r)sin(s)(-cos(t)) - sin(r)cos(s)sin(t)) - cos(r)cos(u),     sin(r)cos(s)cos(t) - sin(r)sin(s)sin(t),        b * sin(r) + c * sin(r)cos(s) + (d + e)(sin(r)cos(s)cos(t) - sin(r)sin(s)sin(t))],
+        [cos(u)(cos(s)cos(t) - sin(s)sin(t)),                               sin(u)(-(cos(s)cos(t) - sin(s)sin(t))),                                 sin(s)cos(t) + cos(s)sin(t),                    a + c * sin(s) + (d + e)(sin(s)cos(t) + cos(s)sin(t))],
+        [0,                                                                 0,                                                                      0,                                              1]
     ]
