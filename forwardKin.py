@@ -1,5 +1,4 @@
-from numpy import cos
-from numpy import sin
+from numpy import cos, sin
 import numpy as np
 
 #############################################################################
@@ -10,7 +9,15 @@ import numpy as np
 
 def main():
     # Stores the length of each link in cm
-    lengths = [0, 0, 0, 0, 0]
+    lengths = [25.0, 2.0, 10.0, 5.0, 2.0]
+
+    # **********************************************
+    # Declare each length individually as a1, a2, etc
+    # make lengths = [a1, a2, etc] after that.
+    # change a, b, c, d, e, to a1, a2, a3, a4, a4
+    # **********************************************
+    # Angles might be good as it is cause each value must be changed to rad
+    # **********************************************
 
     # Stores the desired angles in degrees
     angles = [0, 0, 0, 0]
@@ -21,6 +28,7 @@ def main():
     t = (angles[2]/180.0) * np.pi
     u = (angles[3]/180.0) * np.pi
 
+    # Lengths made shorter
     a = lengths[0]; b = lengths[1]; c = lengths[2]; d = lengths[3]; e = lengths[4]
 
     # Rotation matrix frame 4 on 0 (end-effector on base frame)
@@ -56,47 +64,6 @@ def main():
     print(np.matrix(d0_4))
     print("\n================")
     
-
-'''
-# rotations contains the rotation matrices of the rover
-# vectors contains the displacement vectors of the rover
-def homogeneousMatrices(rotations, vectors):
-
-    # Homogenous matrix frames 0 - 1
-    h0_1 = np.concatenate((rotations[0], vectors[0]), 1)  # First left, second right
-    h0_1 = np.concatenate((h0_1, [[0, 0, 0, 1]]), 0)  # First top, second bottom
-
-    # Homogenous matrix frames 1 - 2
-    h1_2 = np.concatenate((rotations[1], vectors[1]), 1)
-    h1_2 = np.concatenate((h1_2, [[0, 0, 0, 1]]), 0)
-
-    # Homogenous matrix frames 2 - 3
-    h2_3 = np.concatenate((rotations[2], vectors[2]), 1)
-    h2_3 = np.concatenate((h2_3, [[0, 0, 0, 1]]), 0)
-
-    # Homogenous matrix frames 3 - 4
-    h3_4 = np.concatenate((rotations[3], vectors[3]), 1)
-    h3_4 = np.concatenate((h3_4, [[0, 0, 0, 1]]), 0)
-
-    # Homogenous matrix frames 0 - 2
-    h0_2 = np.dot(h0_1, h1_2)
-
-    # Homogenous matrix frames 2 - 4
-    h2_4 = np.dot(h2_3, h3_4)
-
-    # Homogenous matrix frames 0 - 4 (end-effector on base frame)
-    h0_4 = np.dot(h0_2, h2_4)
-
-    # Print resulting matrix
-    print("\n===== h0_4 =====")
-    print(np.matrix(h0_4))
-    print("\n================")
-'''
-# ===========================================================================
-
-# DIFFERENT APPROACHES TO GET HOMOGENOUS TRANSFORMATION MATRICES (SOLVE FK)
-
-# ===========================================================================
 
 # angles is an array with the values in degrees of each joint
 # lengths is an array with the values in cm of each link
