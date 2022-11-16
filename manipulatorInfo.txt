@@ -87,6 +87,12 @@ Displacement Vectors:
         [d + e]
     ]
 
+    d0_4 = [
+        [b * cos(r) + c * cos(r)cos(s) + (d + e)(cos(r)cos(s)cos(t) - cos(r)sin(s)sin(t))],
+        [b * sin(r) + c * sin(r)cos(s) + (d + e)(sin(r)cos(s)cos(t) - sin(r)sin(s)sin(t))],
+        [a + c * sin(s) + (d + e)(sin(s)cos(t) + cos(s)sin(t))]
+    ]
+
 
 Homogenous Matrices:
 

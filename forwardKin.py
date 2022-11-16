@@ -23,7 +23,7 @@ def main():
 
     a = lengths[0]; b = lengths[1]; c = lengths[2]; d = lengths[3]; e = lengths[4]
 
-    # Final rotation matrix (end-effector on base frame)
+    # Rotation matrix frame 4 on 0 (end-effector on base frame)
     r0_4 = [
         [cos(u)*(-cos(r)*sin(s)*cos(t) - cos(r)*cos(s)*sin(t)),                     sin(u)*(-(-cos(r)*sin(s)*cos(t) - cos(r)*cos(s)*sin(t))),                   cos(r)*cos(s)*cos(t) - cos(r)*sin(s)*sin(t)],
         [cos(u)*(sin(r)*sin(s)*(-cos(t)) - sin(r)*cos(s)*sin(t)) - cos(r)*sin(u),   -sin(u)*(sin(r)*sin(s)*(-cos(t)) - sin(r)*cos(s)*sin(t)) - cos(r)*cos(u),   sin(r)*cos(s)*cos(t) - sin(r)*sin(s)*sin(t)],
@@ -35,7 +35,7 @@ def main():
     print(np.matrix(r0_4))
     print("\n================")
 
-    # Homogenous matrix frame 4 on 0
+    # Homogenous matrix frame 4 on 0 (end-effector on base frame)
     h0_4 = [
         [cos(u)*(-cos(r)*sin(s)*cos(t) - cos(r)*cos(s)*sin(t)),                     sin(u)*(-(-cos(r)*sin(s)*cos(t) - cos(r)*cos(s)*sin(t))),                   cos(r)*cos(s)*cos(t) - cos(r)*sin(s)*sin(t),        b * cos(r) + c * cos(r)*cos(s) + (d + e)*(cos(r)*cos(s)*cos(t) - cos(r)*sin(s)*sin(t))],
         [cos(u)*(sin(r)*sin(s)*(-cos(t)) - sin(r)*cos(s)*sin(t)) - cos(r)*sin(u),   -sin(u)*(sin(r)*sin(s)*(-cos(t)) - sin(r)*cos(s)*sin(t)) - cos(r)*cos(u),   sin(r)*cos(s)*cos(t) - sin(r)*sin(s)*sin(t),        b * sin(r) + c * sin(r)*cos(s) + (d + e)*(sin(r)*cos(s)*cos(t) - sin(r)*sin(s)*sin(t))],
@@ -46,6 +46,14 @@ def main():
     # Print resulting matrix
     print("\n===== h0_4 =====")
     print(np.matrix(h0_4))
+    print("\n================")
+
+    # Displacement vector frame 4 on 0 (end-effector on base frame)
+    d0_4 = [h0_4[0][3], h0_4[1][3], h0_4[2][3]]
+
+    # Print the displacement vector
+    print("\n===== d0_4 =====")
+    print(np.matrix(d0_4))
     print("\n================")
     
 
