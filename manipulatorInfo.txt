@@ -53,6 +53,13 @@ Rotation Matrices:
         [cos(u)(cos(s)cos(t) - sin(s)sin(t)),                                   sin(u)(-(cos(s)cos(t) - sin(s)sin(t))),                                 sin(s)cos(t) + cos(s)sin(t)]
     ]
 
+    # Inverse of r0_3
+    invR0_3 = [
+        [-((sin(s)cos(t) + cos(s)sin(t)) * (1/cos(r)cos(s)**2cos(t)**2 + cos(r)sin(s)**2sin(t)**2 + cos(r)sin(s)**2cos(t)**2 + cos(r)cos(s)**2sin(t)**2)), 0, cos(s)**2cos(t)**2 + sin(s)**2sin(t)**2 - 2sin(s)cos(s)cos(t)sin(t)],
+        [sin(r) * 1/cos(r)**2, -(1/cos(r)), 0],
+        [cos(s)cos(t) - sin(s)sin(t) * 1/cos(r)cos(s)**2cos(t)**2 + cos(r)sin(s)**2sin(t)**2 + cos(r)sin(s)**2cos(t)**2 + cos(r)cos(s)**2sin(t)**2, 0, (sin(s)cos(t) + cos(s)sin(t)) * 1/(cos(s)**2 + sin(s)**2)(cos(t)**2 + sin(t)**2)]
+    ]
+
 
 Displacement Vectors:
 
