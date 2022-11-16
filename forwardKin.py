@@ -30,6 +30,11 @@ def main():
         [cos(u)*(cos(s)*cos(t) - sin(s)*sin(t)),                                    sin(u)*(-(cos(s)*cos(t) - sin(s)*sin(t))),                                  sin(s)*cos(t) + cos(s)*sin(t)]
     ]
 
+    # Print resulting matrix
+    print("\n===== r0_4 =====")
+    print(np.matrix(r0_4))
+    print("\n================")
+
     # Homogenous matrix frame 4 on 0
     h0_4 = [
         [cos(u)*(-cos(r)*sin(s)*cos(t) - cos(r)*cos(s)*sin(t)),                     sin(u)*(-(-cos(r)*sin(s)*cos(t) - cos(r)*cos(s)*sin(t))),                   cos(r)*cos(s)*cos(t) - cos(r)*sin(s)*sin(t),        b * cos(r) + c * cos(r)*cos(s) + (d + e)*(cos(r)*cos(s)*cos(t) - cos(r)*sin(s)*sin(t))],
@@ -37,11 +42,12 @@ def main():
         [cos(u)*(cos(s)*cos(t) - sin(s)*sin(t)),                                    sin(u)*(-(cos(s)*cos(t) - sin(s)*sin(t))),                                  sin(s)*cos(t) + cos(s)*sin(t),                      a + c * sin(s) + (d + e)*(sin(s)*cos(t) + cos(s)*sin(t))],
         [0,                                                                         0,                                                                          0,                                                  1]
     ]
-
+    
     # Print resulting matrix
-    print("\n===== r0_4 =====")
-    print(np.matrix(r0_4))
+    print("\n===== h0_4 =====")
+    print(np.matrix(h0_4))
     print("\n================")
+    
 
 '''
 # rotations contains the rotation matrices of the rover
@@ -117,10 +123,10 @@ def denavitHartenberg(angles, lengths):
     # get the homogeneous transformation matrices
     while i < 4:
         matrices[i] = [
-            [np.cos(pTable[i][0]), -np.sin(pTable[i][0]) * np.cos(pTable[i][1]), np.sin(pTable[i][0]) * np.sin(pTable[i][1]), pTable[i][2] * np.cos(pTable[i][0])],
-            [np.sin(pTable[i][0]), np.cos(pTable[i][0]) * np.cos(pTable[i][1]), -np.cos(pTable[i][0]) * np.sin(pTable[i][1]), pTable[i][2] * np.sin(pTable[i][0])], 
-            [0, np.sin(pTable[i][1]), np.cos(pTable[i][1]), pTable[i][3]]
-            [0, 0, 0, 1]
+            [cos(pTable[i][0]),     -sin(pTable[i][0]) * cos(pTable[i][1]),     sin(pTable[i][0]) * sin(pTable[i][1]),      pTable[i][2] * cos(pTable[i][0])],
+            [sin(pTable[i][0]),     cos(pTable[i][0]) * cos(pTable[i][1]),      -cos(pTable[i][0]) * sin(pTable[i][1]),     pTable[i][2] * sin(pTable[i][0])], 
+            [0,                     sin(pTable[i][1]),                          cos(pTable[i][1]),                          pTable[i][3]],
+            [0,                     0,                                          0,                                          1]
         ]
         i += 1
 
