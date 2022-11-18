@@ -1,23 +1,15 @@
-from numpy import cos, sin
-import numpy as np
-
 #############################################################################
 # Forward Kinematics
 # Tell the location of the manipulator's end-effector given the values of the joints.
 #############################################################################
 
+from numpy import cos, sin
+import numpy as np
+
 
 def main():
-    # Stores the length of each link in cm
-    lengths = [25.0, 2.0, 10.0, 5.0, 2.0]
-
-    # **********************************************
-    # Declare each length individually as a1, a2, etc
-    # make lengths = [a1, a2, etc] after that.
-    # change a, b, c, d, e, to a1, a2, a3, a4, a4
-    # **********************************************
-    # Angles might be good as it is cause each value must be changed to rad
-    # **********************************************
+    # Set the link lengths
+    a1 = 25.0; a2 = 2.0; a3 = 10.0; a4 = 5.0; a5 = 2.0
 
     # Stores the desired angles in degrees
     angles = [0, 0, 0, 0]
@@ -28,8 +20,6 @@ def main():
     t = (angles[2]/180.0) * np.pi
     u = (angles[3]/180.0) * np.pi
 
-    # Lengths made shorter
-    a = lengths[0]; b = lengths[1]; c = lengths[2]; d = lengths[3]; e = lengths[4]
 
     # Rotation matrix frame 4 on 0 (end-effector on base frame)
     r0_4 = [
@@ -45,9 +35,9 @@ def main():
 
     # Homogenous matrix frame 4 on 0 (end-effector on base frame)
     h0_4 = [
-        [cos(u)*(-cos(r)*sin(s)*cos(t) - cos(r)*cos(s)*sin(t)),                     sin(u)*(-(-cos(r)*sin(s)*cos(t) - cos(r)*cos(s)*sin(t))),                   cos(r)*cos(s)*cos(t) - cos(r)*sin(s)*sin(t),        b * cos(r) + c * cos(r)*cos(s) + (d + e)*(cos(r)*cos(s)*cos(t) - cos(r)*sin(s)*sin(t))],
-        [cos(u)*(sin(r)*sin(s)*(-cos(t)) - sin(r)*cos(s)*sin(t)) - cos(r)*sin(u),   -sin(u)*(sin(r)*sin(s)*(-cos(t)) - sin(r)*cos(s)*sin(t)) - cos(r)*cos(u),   sin(r)*cos(s)*cos(t) - sin(r)*sin(s)*sin(t),        b * sin(r) + c * sin(r)*cos(s) + (d + e)*(sin(r)*cos(s)*cos(t) - sin(r)*sin(s)*sin(t))],
-        [cos(u)*(cos(s)*cos(t) - sin(s)*sin(t)),                                    sin(u)*(-(cos(s)*cos(t) - sin(s)*sin(t))),                                  sin(s)*cos(t) + cos(s)*sin(t),                      a + c * sin(s) + (d + e)*(sin(s)*cos(t) + cos(s)*sin(t))],
+        [cos(u)*(-cos(r)*sin(s)*cos(t) - cos(r)*cos(s)*sin(t)),                     sin(u)*(-(-cos(r)*sin(s)*cos(t) - cos(r)*cos(s)*sin(t))),                   cos(r)*cos(s)*cos(t) - cos(r)*sin(s)*sin(t),        a2 * cos(r) + a3 * cos(r)*cos(s) + (a4 + a5)*(cos(r)*cos(s)*cos(t) - cos(r)*sin(s)*sin(t))],
+        [cos(u)*(sin(r)*sin(s)*(-cos(t)) - sin(r)*cos(s)*sin(t)) - cos(r)*sin(u),   -sin(u)*(sin(r)*sin(s)*(-cos(t)) - sin(r)*cos(s)*sin(t)) - cos(r)*cos(u),   sin(r)*cos(s)*cos(t) - sin(r)*sin(s)*sin(t),        a2 * sin(r) + a3 * sin(r)*cos(s) + (a4 + a5)*(sin(r)*cos(s)*cos(t) - sin(r)*sin(s)*sin(t))],
+        [cos(u)*(cos(s)*cos(t) - sin(s)*sin(t)),                                    sin(u)*(-(cos(s)*cos(t) - sin(s)*sin(t))),                                  sin(s)*cos(t) + cos(s)*sin(t),                      a1 + a3 * sin(s) + (a4 + a5)*(sin(s)*cos(t) + cos(s)*sin(t))],
         [0,                                                                         0,                                                                          0,                                                  1]
     ]
     
@@ -67,6 +57,7 @@ def main():
 
 # angles is an array with the values in degrees of each joint
 # lengths is an array with the values in cm of each link
+# lengths[0] = a1; lengths[1] = a2; lengths[2] = a3 ...
 def denavitHartenberg(angles, lengths):
     """
     D-H parameter table for the manipulator
