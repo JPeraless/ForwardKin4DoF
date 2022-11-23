@@ -3,9 +3,9 @@ import numpy as np
 from math import sqrt, acos, atan
 
 #############################################################################
-# Inverse Kinematics
-# Get to specify where we want the end-effector to be 
-# and calculate the angles needed to get to that position.
+# Inverse Kinematics (Analytical solution by geometric approach)
+# Given the target position and orientation of the end-effector, 
+# calculate the joint parameters needed to get to that position.
 #############################################################################
 
 '''
@@ -19,7 +19,6 @@ assume that the first 3 joints are only responsible for position while the last 
 entirely determines the end-effector's rotation.
 
 Thus, one cannot expect to make use of the fundamental IK assumptions.
-
 '''
 
 # IK from frame 0 to 4, not from frame 0 to 3 as suggested for 6 DoF manipulators
@@ -28,28 +27,23 @@ def main():
     # Set link lengths
     a1 = 25.0; a2 = 2.0; a3 = 10.0; a4 = 5.0; a5 = 2.0
 
-    # Desired end-effector coordinates
-    x = 5.0
-    y = 5.0
+    # Desired end-effector coordinates (in cm?)
+    x = 35.0
+    y = 35.0
+    z = 35.0
 
-    # Height from frame 0 to 2
-    z0_2 = 0  # not sure how to get this
+    # Get angle alpha
+    alpha = atan((z - a1) / sqrt((x * x) + (y * y)))
 
-    # y displacement from frame 1 to 2
-    r2 = z0_2 - a1  # can z0_2 be used? Might need to use Z as a whole and subtract from it
-
-    # x displacement from frame 1 to 2
-    r1 = sqrt((a3 * a3) + (r2 * r2))  # only valid if z0_2 is
-
-    # Straight line between frame 1 and 4
-    k = sqrt((x * x) + (y * y)) - a2
+    # Get angle beta
+    beta = acos((x * x) + (y * y) + (z - a1) ** 2 / 2 * a3 * (a4 + a5))
 
     # phi1 = 180 - theta1
-    phi1 = acos(((a3 * a3) + (a4 + a5) - (k * k)) / 2 * a3 * (a4 + a5))
+    phi1 = acos(((a3 * a3) + (a4 + a5)**2 - (x * x) - (y * y) - (z - a1)**2) / 2 * a3 * (a4 + a5))
 
-    # Joint variable equations
-    theta_1 = atan(y / x)  # angle of the first joint
-    theta_2 = atan(r2 / r1)  # asin(r2 / a3) should also work
+    # Joint variable equations 
+    theta_1 = atan(y / x)
+    theta_2 = alpha - beta
     theta_3 = 180 - phi1
 
     print(f"Theta 1 = {theta_1} radians\n")
@@ -60,7 +54,7 @@ def main():
 
 
     # Use to test correctness of k (needs phi1 to be known)
-    # kTest = sqrt((a3 * a3) + (a4 + a5) - 2 * a3 * (a4 + a5) * np.cos(phi1))
+    ### kTest = sqrt((a3 * a3) + (a4 + a5) - 2 * a3 * (a4 + a5) * np.cos(phi1))
 
 
 # Calculate the rotation required to get the desired rotation
