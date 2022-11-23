@@ -1,0 +1,153 @@
+r = theta1; s = theta2; t = theta3; u = theta4
+a1 = link1; a2 = link2; a3 = link3; a4 = link4; a5 = link5
+
+
+Rotation Matrices:
+    
+    # Rotation matrix frame 1 on 0
+    r0_1 = [
+        [cos(r),    0,      0],
+        [sin(r),    0,      -cos(r)],
+        [0,         1,      0]
+    ]
+
+    # Rotation matrix frame 2 on 1
+    r1_2 = [
+        [cos(s),    -sin(s),    0],
+        [sin(s),    cos(s),     0],
+        [0,         0,          1]
+    ]
+
+    # Rotation matrix frame 3 on 2
+    r2_3 = [
+        [-sin(t),   0,      cos(t)],
+        [cos(t),    0,      sin(t)],
+        [0,         1,      0]
+    ]
+
+    # Rotation matrix frame 4 on 3
+    r3_4 = [
+        [cos(u),    -sin(u),    0],
+        [sin(u),    cos(u),     0],
+        [0,         0,          1]
+    ]
+
+    # Rotation matrix frame 2 on 0
+    r0_2 = [
+        [cos(r)cos(s),    -cos(r)sin(s),   0],
+        [sin(r)cos(s),    -sin(r)sin(s),   -cos(r)],
+        [sin(s),          cos(s),          0]
+    ]
+
+    # Rotation matrix frame 3 on 0
+    r0_3 = [
+        [-cos(r)sin(s)cos(t) - cos(r)cos(s)sin(t),    0,           cos(r)cos(s)cos(t) - cos(r)sin(s)sin(t)],
+        [sin(r)sin(s)(-cos(t)) - sin(r)cos(s)sin(t),  -cos(r),     sin(r)cos(s)cos(t) - sin(r)sin(s)sin(t)],
+        [cos(s)cos(t) - sin(s)sin(t),                 0,           sin(s)cos(t) + cos(s)sin(t)]
+    ]
+
+    # Rotation matrix frame 4 on 0
+    r0_4 = [
+        [cos(u)(-cos(r)sin(s)cos(t) - cos(r)cos(s)sin(t)),                      sin(u)(-(-cos(r)sin(s)cos(t) - cos(r)cos(s)sin(t))),                    cos(r)cos(s)cos(t) - cos(r)sin(s)sin(t)],
+        [cos(u)(sin(r)sin(s)(-cos(t)) - sin(r)cos(s)sin(t)) - cos(r)sin(u),     -sin(u)(sin(r)sin(s)(-cos(t)) - sin(r)cos(s)sin(t)) - cos(r)cos(u),     sin(r)cos(s)cos(t) - sin(r)sin(s)sin(t)],
+        [cos(u)(cos(s)cos(t) - sin(s)sin(t)),                                   sin(u)(-(cos(s)cos(t) - sin(s)sin(t))),                                 sin(s)cos(t) + cos(s)sin(t)]
+    ]
+
+    # Inverse of r0_3
+    invR0_3 = [
+        [-((sin(s)cos(t) + cos(s)sin(t)) * (1/cos(r)cos(s)**2cos(t)**2 + cos(r)sin(s)**2sin(t)**2 + cos(r)sin(s)**2cos(t)**2 + cos(r)cos(s)**2sin(t)**2)),  0,              cos(s)**2cos(t)**2 + sin(s)**2sin(t)**2 - 2sin(s)cos(s)cos(t)sin(t)],
+        [sin(r) * 1/cos(r)**2,                                                                                                                              -(1/cos(r)),    0],
+        [cos(s)cos(t) - sin(s)sin(t) * 1/cos(r)cos(s)**2cos(t)**2 + cos(r)sin(s)**2sin(t)**2 + cos(r)sin(s)**2cos(t)**2 + cos(r)cos(s)**2sin(t)**2,         0,              (sin(s)cos(t) + cos(s)sin(t)) * 1/(cos(s)**2 + sin(s)**2)(cos(t)**2 + sin(t)**2)]
+    ]
+
+
+Displacement Vectors:
+
+    d0_1 = [    
+        [a2 * cos(r)],
+        [a2 * sin(r)],
+        [a1]
+    ]
+
+    d1_2 = [
+        [a3 * cos(s)],
+        [a3 * sin(s)],
+        [0]
+    ]
+
+    d2_3 = [
+        [0],
+        [0],
+        [0]
+    ]
+
+    d3_4 = [
+        [0],
+        [0],
+        [a4 + a5]
+    ]
+
+    d0_4 = [
+        [a2 * cos(r) + a3 * cos(r)cos(s) + (a4 + a5)(cos(r)cos(s)cos(t) - cos(r)sin(s)sin(t))],
+        [a2 * sin(r) + a3 * sin(r)cos(s) + (a4 + a5)(sin(r)cos(s)cos(t) - sin(r)sin(s)sin(t))],
+        [a1 + a3 * sin(s) + (a4 + a5)(sin(s)cos(t) + cos(s)sin(t))]
+    ]
+
+
+Homogenous Matrices:
+
+    # Homogenous matrix frame 1 on 0
+    h0_1 = [
+        [cos(r),    0,      0,          a2 * cos(r)],
+        [sin(r),    0,      -cos(r),    a2 * sin(r)],
+        [0,         1,      0,          a1],
+        [0,         0,      0,          1]
+    ]
+
+    # Homogenous matrix frame 2 on 1
+    h1_2 = [
+        [cos(s),    -sin(s),    0,      a3 * cos(s)],
+        [sin(s),    cos(s),     0,      a3 * sin(s)],
+        [0,         0,          1,      0],
+        [0,         0,          0,      1]
+    ]
+
+    #Homogenous matrix frame 3 on 2
+    h2_3 = [
+        [-sin(t),   0,      cos(t),     0],
+        [cos(t),    0,      sin(t),     0],
+        [0,         1,      0,          0],
+        [0,         0,      0,          1]
+    ]
+
+    # Homogenous matrix frame 4 on 3
+    h3_4 = [
+        [cos(u),    -sin(u),    0,      0],
+        [sin(u),    cos(u),     0,      0],
+        [0,         0,          1,      a4 + a5],
+        [0,         0,          0,      1]
+    ]
+
+    # Homogenous matrix frame 2 on 0
+    h0_2 = [
+        [cos(r)cos(s),      -cos(r)sin(s),      0,          a2 * cos(r) + a3 * cos(r)cos(s)],
+        [sin(r)cos(s),      -sin(r)sin(s),      -cos(r),    a2 * sin(r) + a3 * sin(r)cos(s)],
+        [sin(s),            cos(s),             0,          a1 + a3 * sin(s)],
+        [0,                 0,                  0,          1]
+    ]
+
+    #Homogenous matrix frame 3 on 0
+    h0_3 = [
+        [-cos(r)sin(s)cos(t) - cos(r)cos(s)sin(t),      0,          cos(r)cos(s)cos(t) - cos(r)sin(s)sin(t),    a2 * cos(r) + a3 * cos(r)cos(s)],
+        [sin(r)sin(s)(-cos(t)) - sin(r)cos(s)sin(t),    -cos(r),    sin(r)cos(s)cos(t) - sin(r)sin(s)sin(t),    a2 * sin(r) + a3 * sin(r)cos(s)],
+        [cos(s)cos(t) - sin(s)sin(t),                   0,          sin(s)cos(t) + cos(s)sin(t),                a1 + a3 * sin(s)],
+        [0,                                             0,          0,                                          1]
+    ]
+
+    # Homogenous matrix frame 4 on 0
+    h0_4 = [
+        [cos(u)(-cos(r)sin(s)cos(t) - cos(r)cos(s)sin(t)),                  sin(u)(-(-cos(r)sin(s)cos(t) - cos(r)cos(s)sin(t))),                    cos(r)cos(s)cos(t) - cos(r)sin(s)sin(t),        a2 * cos(r) + a3 * cos(r)cos(s) + (a4 + a5)(cos(r)cos(s)cos(t) - cos(r)sin(s)sin(t))],
+        [cos(u)(sin(r)sin(s)(-cos(t)) - sin(r)cos(s)sin(t)) - cos(r)sin(u), -sin(u)(sin(r)sin(s)(-cos(t)) - sin(r)cos(s)sin(t)) - cos(r)cos(u),     sin(r)cos(s)cos(t) - sin(r)sin(s)sin(t),        a2 * sin(r) + a3 * sin(r)cos(s) + (a4 + a5)(sin(r)cos(s)cos(t) - sin(r)sin(s)sin(t))],
+        [cos(u)(cos(s)cos(t) - sin(s)sin(t)),                               sin(u)(-(cos(s)cos(t) - sin(s)sin(t))),                                 sin(s)cos(t) + cos(s)sin(t),                    a1 + a3 * sin(s) + (a4 + a5)(sin(s)cos(t) + cos(s)sin(t))],
+        [0,                                                                 0,                                                                      0,                                              1]
+    ]
