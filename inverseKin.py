@@ -1,12 +1,13 @@
-from numpy import cos, sin
-import numpy as np
-from math import sqrt, acos, atan
-
 #############################################################################
 # Inverse Kinematics (Analytical solution by geometric approach)
 # Given the target position and orientation of the end-effector, 
 # calculate the joint parameters needed to get to that position.
 #############################################################################
+
+from numpy import cos, sin
+import numpy as np
+from math import sqrt, acos, atan
+
 
 '''
 For 6 DoF manipulators, as they normally consist of a spherical wrist attached to a
@@ -20,41 +21,6 @@ entirely determines the end-effector's rotation.
 
 Thus, one cannot expect to make use of the fundamental IK assumptions.
 '''
-
-# IK from frame 0 to 4, not from frame 0 to 3 as suggested for 6 DoF manipulators
-def main():
-    
-    # Set link lengths
-    a1 = 25.0; a2 = 2.0; a3 = 10.0; a4 = 5.0; a5 = 2.0
-
-    # Desired end-effector coordinates (in cm?)
-    x = 35.0
-    y = 35.0
-    z = 35.0
-
-    # Get angle alpha
-    alpha = atan((z - a1) / sqrt((x * x) + (y * y)))
-
-    # Get angle beta
-    beta = acos((x * x) + (y * y) + (z - a1) ** 2 / 2 * a3 * (a4 + a5))
-
-    # phi1 = 180 - theta1
-    phi1 = acos(((a3 * a3) + (a4 + a5)**2 - (x * x) - (y * y) - (z - a1)**2) / 2 * a3 * (a4 + a5))
-
-    # Joint variable equations 
-    theta_1 = atan(y / x)
-    theta_2 = alpha - beta
-    theta_3 = 180 - phi1
-
-    print(f"Theta 1 = {theta_1} radians\n")
-    print(f"Theta 2 = {theta_2} radians\n")
-    print(f"Theta 3 = {theta_3} radians\n")
-
-    finalRotation(theta_1, theta_2, theta_3)
-
-
-    # Use to test correctness of k (needs phi1 to be known)
-    ### kTest = sqrt((a3 * a3) + (a4 + a5) - 2 * a3 * (a4 + a5) * np.cos(phi1))
 
 
 # Calculate the rotation required to get the desired rotation
@@ -81,9 +47,9 @@ def finalRotation(theta_1, theta_2, theta_3):
     # Calculate the rotation matrix of frame 4 on 3
     r3_4 = np.dot(invR0_3, r0_4)
 
-    print("\n===== r3_4 =====")
+    print("\n\t===== r3_4 =====")
     print(np.matrix(r3_4))
-    print("\n================")
+    print("\t================\n")
 
     # Test rotation matrix for frame 4 on 3
     '''testR3_4 = [
@@ -92,6 +58,46 @@ def finalRotation(theta_1, theta_2, theta_3):
         [0,         0,          1]
     ]'''
 
+
+# IK from frame 0 to 4, not from frame 0 to 3 as suggested for 6 DoF manipulators
+def main():
+
+    # Convert radians to degrees
+    DEG_CONVERT = 180 / np.pi
+
+    # Convert degrees to radians
+    RAD_CONVERT = np.pi / 180
+
+    # Set link lengths
+    a1 = 25.0; a2 = 2.0; a3 = 10.0; a4 = 5.0; a5 = 2.0
+
+    # Desired end-effector coordinates (in cm?)
+    x = 25.0
+    y = 25.0
+    z = 25.0
+
+    # Get angle alpha
+    alpha = atan((z - a1) / sqrt((x * x) + (y * y)) * RAD_CONVERT)
+
+    # Get angle beta
+    beta = acos(((x * x) + (y * y) + (z - a1) ** 2) / (2 * a3 * (a4 + a5)) * RAD_CONVERT)
+
+    # phi1 = 180 - theta1
+    phi1 = acos(((a3 * a3) + (a4 + a5)**2 - (x * x) - (y * y) - (z - a1)**2) / (2 * a3 * (a4 + a5)) * RAD_CONVERT)
+
+    # Joint variable equations 
+    theta_1 = atan(y / x)
+    theta_2 = alpha - beta
+    theta_3 = 180 - phi1
+
+    print(f"Theta 1 = {theta_1} radians; {theta_1 * DEG_CONVERT} degrees")
+    print(f"Theta 2 = {theta_2} radians; {theta_2 * DEG_CONVERT} degrees")
+    print(f"Theta 3 = {theta_3} radians; {theta_3 * DEG_CONVERT} degrees")
+
+    finalRotation(theta_1, theta_2, theta_3)
+
+    # Use to test correctness of straight line from frame 2 to 4 (needs phi1 to be known)
+    ### test = sqrt((a3 * a3) + (a4 + a5) - 2 * a3 * (a4 + a5) * np.cos(phi1))
 
 if __name__ == "__main__":
     main()
