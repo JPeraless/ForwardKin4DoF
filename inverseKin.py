@@ -47,9 +47,9 @@ def finalRotation(theta_1, theta_2, theta_3):
     # Calculate the rotation matrix of frame 4 on 3
     r3_4 = np.dot(invR0_3, r0_4)
 
-    print("\n\t===== r3_4 =====")
+    print("\n\t============ r3_4 ============")
     print(np.matrix(r3_4))
-    print("\t================\n")
+    print("\t================================\\n")
 
     # Test rotation matrix for frame 4 on 3
     '''testR3_4 = [
@@ -90,9 +90,9 @@ def main():
     theta_2 = alpha - beta
     theta_3 = 180 - phi1
 
-    print(f"Theta 1 = {theta_1} radians; {theta_1 * DEG_CONVERT} degrees")
-    print(f"Theta 2 = {theta_2} radians; {theta_2 * DEG_CONVERT} degrees")
-    print(f"Theta 3 = {theta_3} radians; {theta_3 * DEG_CONVERT} degrees")
+    print(f"\nTheta 1 = {theta_1} radians; \t{theta_1 * DEG_CONVERT} degrees")
+    print(f"Theta 2 = {theta_2} radians; \t{theta_2 * DEG_CONVERT} degrees")
+    print(f"Theta 3 = {theta_3} radians; \t{theta_3 * DEG_CONVERT} degrees")
 
     finalRotation(theta_1, theta_2, theta_3)
 
