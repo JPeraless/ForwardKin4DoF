@@ -1,11 +1,11 @@
 <?xml version"1.0"?>
-<robot name="Manipulator" xmlns:xacro="http://www.ros.org/wiki/xacro">
+<robot name="four_DoF_manipulator" xmlns:xacro="http://www.ros.org/wiki/xacro">
     
-    <!-- This is an URDF representation of Simon's 4 DoF manipulator-->
+    <!-- This is an URDF representation of Simon's 4 DoF manipulator -->
 
-    <xacro:include filename="materials.xacro"/>
+    <xacro:include filename="properties.xacro"/>
 
-    <!-- First link called world is empty -->
+    <!-- First link "world" is empty -->
     <link name="world"></link>
 
     <!-- Simple fixed joint from empty world link to the manipulator's base -->
@@ -19,14 +19,14 @@
     <!-- base_link is a large rectangular plate -->
     <link name="base_link">
         <visual>
-            <origin xyz="0 0 0.5" rpy="0 0 0"/>
+            <origin xyz="1.5 1.5 0.05" rpy="0 0 0"/>
             <geometry>
                 <box size="1.5 1.0 0.1"/>
             </geometry>
             <material name="green"></material>
         </visual>
         <collision>
-            <origin xyz="0 0 0.5" rpy="0 0 0"/>
+            <origin xyz="1.5 1.5 0.05" rpy="0 0 0"/>
             <geometry>
                 <box size="1.5 1.0 0.1"/>
             </geometry>
@@ -38,30 +38,34 @@
         </inertial>
     </link>
     
-    <!-- theta_1 allows a1 to rotate with respect to base_link-->
-    <!-- - Origin is set ot one of the topedges of the base_link box, so that our link skims across -->
-    <!-- - It moves along the {} axis-->
+    <!-- theta_1 allows a1 to rotate with respect to base_link -->
+    <!-- - Origin is set ot one of the top edges of the base_link box, so that our link skims across -->
+    <!-- - It moves along the {} axis -->
     <joint name="theta_1" type="revolute">
-        <origin xyz="0 0 0" rpy="0 0 0" />
+        <origin xyz="1.5 1.5 0.1" rpy="0 0 0" />
         <parent link="base_link" />
         <child link="a1" />
-        <axis xyz="0 0 0" />
-        <limit lower="0" upper="0" velocity="100" effort="100" />
+        <!-- How are axes determined? -->
+        <axis xyz="1 1 0" />
+        <!-- Limits are determined based on what? -->
+        <limit lower="-1.57" upper="1.57" velocity="100" effort="100" />
     </joint>
 
     <!-- a1 link of the manipulator -->
+    <xacro:property name="arm_length" value="1" />
+    <xacro:property name="arm_radius" value="0.05" />
     <link name="a1">
         <visual>
-            <origin xyz="0 0 0" rpy="0 0 0" />
+            <origin xyz="1.5 1.5 0.225" rpy="0 0 0" />
             <geometry>
-                <box size="0 0 0" />
+                <box size="0.02 0.02 0.25" />
             </geometry>
-            <material name="blue">
+            <material name="blue" />
         </visual>
         <collision>
-            <origin xyz="0 0 0" rpy="0 0 0" />
+            <origin xyz="1.5 1.5 0.225" rpy="0 0 0" />
             <geometry>
-                <box size="0 0 0" />
+                <box size="0.02 0.02 0.25" />
             </geometry>
         </collision>
         <inertial>
@@ -74,16 +78,16 @@
     <!-- a2 link of the manipulator -->
     <link name="a2">
         <visual>
-            <origin xyz="0 0 0" rpy="0 0 0" />
+            <origin xyz="1.501 1.5 0.35" rpy="0 0 0" />
             <geometry>
-                <box size="0 0 0" />
+                <box size="0.02 0.01 0.01" />
             </geometry>
-            <material name="blue">
+            <material name="blue" />
         </visual>
         <collision>
-            <origin xyz="0 0 0" rpy="0 0 0" />
+            <origin xyz="1.501 1.5 0.35" rpy="0 0 0" />
             <geometry>
-                <box size="0 0 0" />
+                <box size="0.02 0.005 0.005" />
             </geometry>
         </collision>
         <inertial>
@@ -95,26 +99,27 @@
 
     <!-- theta_2 allows a3 to rotate with respect to a2 -->
     <joint name="theta_2" type="revolute">
-        <origin xyz="0 0 0" rpy="0 0 0" />
+        <origin xyz="1.502 1.5 0.35" rpy="0 0 0" />
         <parent link="a2" />
         <child link="a3" />
-        <axis xyz="0 0 0" />
-        <limit lower="0" upper="0" velocity="100" effort="100" />
+        <!-- How are axes determined? -->
+        <axis xyz="0 0 1" />
+        <limit lower="-1.57" upper="1.57" velocity="100" effort="100" />
     </joint>
 
     <!-- a3 link of the manipulator -->
     <link name="a3">
         <visual>
-            <origin xyz="0 0 0" rpy="0 0 0" />
+            <origin xyz="1.507 1.5 0.35" rpy="0 0 0" />
             <geometry>
-                <box size="0 0 0" />
+                <box size="0.1 0.02 0.02" />
             </geometry>
-            <material name="blue">
+            <material name="blue" />
         </visual>
         <collision>
-            <origin xyz="0 0 0" rpy="0 0 0" />
+            <origin xyz="1.507 1.5 0.35" rpy="0 0 0" />
             <geometry>
-                <box size="0 0 0" />
+                <box size="0.1 0.02 0.02" />
             </geometry>
         </collision>
         <inertial>
@@ -126,26 +131,27 @@
 
     <!-- theta_3 allows a4 to rotate with respect to a3 -->
     <joint name="theta_3" type="revolute">
-        <origin xyz="0 0 0" rpy="0 0 0" />
+        <origin xyz="1.512 1.5 0.35" rpy="0 0 0" />
         <parent link="a3" />
         <child link="a4" />
-        <axis xyz="0 0 0" />
-        <limit lower="0" upper="0" velocity="100" effort="100" />
+        <!-- How are axes determined? -->
+        <axis xyz="0 0 1" />
+        <limit lower="-1.57" upper="1.57" velocity="100" effort="100" />
     </joint>
 
     <!-- a4 link of the manipulator -->
     <link name="a4">
         <visual>
-            <origin xyz="0 0 0" rpy="0 0 0" />
+            <origin xyz="1.537 1.5 0.35" rpy="0 0 0" />    
             <geometry>
-                <box size="0 0 0" />
+                <box size="0.05 0.02 0.02" />
             </geometry>
-            <material name="blue">
+            <material name="blue" />
         </visual>
         <collision>
-            <origin xyz="0 0 0" rpy="0 0 0" />
+            <origin xyz="1.537 1.5 0.35" rpy="0 0 0" />
             <geometry>
-                <box size="0 0 0" />
+                <box size="0.05 0.02 0.02" />
             </geometry>
         </collision>
         <inertial>
@@ -157,26 +163,27 @@
 
     <!-- theta_4 allows a5 to rotate with respect to a4 -->
     <joint name="theta_3" type="revolute">
-        <origin xyz="0 0 0" rpy="0 0 0" />
+        <origin xyz="1.562 1.5 0.35" rpy="0 0 0" />
         <parent link="a4" />
         <child link="a5" />
-        <axis xyz="0 0 0" />
-        <limit lower="0" upper="0" velocity="100" effort="100" />
+        <!-- How are axes determined? -->
+        <axis xyz="1 0 0" />
+        <limit lower="-1.57" upper="1.57" velocity="100" effort="100" />
     </joint>
 
     <!-- a5 link of the manipulator -->
     <link name="a5">
         <visual>
-            <origin xyz="0 0 0" rpy="0 0 0" />
+            <origin xyz="1.563 1.5 0.35" rpy="0 0 0" />
             <geometry>
-                <box size="0 0 0" />
+                <box size="0.02 0.01 0.01" />
             </geometry>
-            <material name="blue">
+            <material name="blue" />
         </visual>
         <collision>
-            <origin xyz="0 0 0" rpy="0 0 0" />
+            <origin xyz="1.563 1.5 0.35" rpy="0 0 0" />
             <geometry>
-                <box size="0 0 0" />
+                <box size="0.02 0.01 0.01" />
             </geometry>
         </collision>
         <inertial>
