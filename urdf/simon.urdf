@@ -15,7 +15,11 @@
         <color rgba="1 1 1 1"/>
     </material>
 
-    <!-- base_joint (world) -->
+    <!-- World link -->
+    <link name="world">
+    </link>
+
+    <!-- base_joint -->
     <joint name="base_joint" type="fixed">
         <origin xyz="0 0 0" rpy="0 0 0" />
         <parent link="world" />
@@ -37,14 +41,14 @@
                 <box size="1 0.5 0.04"/>
             </geometry>
         </collision>
-        <inertial>
-            <!-- Specifies the center of gravity and the inertial reference frame
-            (relative to the link's reference frame) -->
+        <!-- <inertial>
+            <!- Specifies the center of gravity and the inertial reference frame
+            (relative to the link's reference frame) ->
             <origin xyz="0 0 0" rpy="0 0 0" />
-            <!-- Mass is defined in kilograms -->
+            <!- Mass is defined in kilograms ->
             <mass value="10" />
-            <inertia ixx="" ixy="" ixz="" iyy="" iyz="" izz="" />
-        </inertial>
+            <inertia ixx="0.0" ixy="0.0" ixz="0.0" iyy="0.0" iyz="0.0" izz="0.0" />
+        </inertial> -->
     </link>
     
     <!-- theta_1 allows a1 to rotate with respect to base_link -->
@@ -75,10 +79,10 @@
                 <cylinder length="0.036" radius="0.01"/>
             </geometry>
         </collision>
-        <inertial>
+        <!-- <inertial>
             <mass value="0.5" />
-            <inertia ixx="" ixy="" ixz="" iyy="" iyz="" izz="" />
-        </inertial>
+            <inertia ixx="0.0" ixy="0.0" ixz="0.0" iyy="0.0" iyz="0.0" izz="0.0" />
+        </inertial> -->
     </link>
 
     <!-- Fixed joint between a1 and a2 -->
@@ -103,10 +107,10 @@
                 <cylinder length="0.05" radius="0.01"/>
             </geometry>
         </collision>
-        <inertial>
+        <!-- <inertial>
             <mass value="0.75" />
-            <inertia ixx="" ixy="" ixz="" iyy="" iyz="" izz="" />
-        </inertial>
+            <inertia ixx="0.0" ixy="0.0" ixz="0.0" iyy="0.0" iyz="0.0" izz="0.0" />
+        </inertial> -->
     </link>
 
     <!-- theta_2 allows a3 to rotate with respect to a2 -->
@@ -133,10 +137,10 @@
                 <cylinder length="0.485" radius="0.01"/>
             </geometry>
         </collision>
-        <inertial>
+        <!-- <inertial>
             <mass value="2.5" />
-            <inertia ixx="" ixy="" ixz="" iyy="" iyz="" izz="" />
-        </inertial>
+            <inertia ixx="0.0" ixy="0.0" ixz="0.0" iyy="0.0" iyz="0.0" izz="0.0" />
+        </inertial> -->
     </link>
 
     <!-- theta_3 allows a4 to rotate with respect to a3 -->
@@ -163,10 +167,10 @@
                 <cylinder length="0.36" radius="0.01"/>
             </geometry>
         </collision>
-        <inertial>
+        <!-- <inertial>
             <mass value="1.5" />
-            <inertia ixx="" ixy="" ixz="" iyy="" iyz="" izz="" />
-        </inertial>
+            <inertia ixx="0.0" ixy="0.0" ixz="0.0" iyy="0.0" iyz="0.0" izz="0.0" />
+        </inertial> -->
     </link>
 
     <!-- theta_4 allows a5 to rotate with respect to a4 -->
@@ -193,10 +197,10 @@
                 <cylinder length="0.08" radius="0.01"/>
             </geometry>
         </collision>
-        <inertial>
+        <!-- <inertial>
             <mass value="0.8" />
-            <inertia ixx="" ixy="" ixz="" iyy="" iyz="" izz="" />
-        </inertial>
+            <inertia ixx="0.0" ixy="0.0" ixz="0.0" iyy="0.0" iyz="0.0" izz="0.0" />
+        </inertial> -->
     </link>
 
 </robot>
