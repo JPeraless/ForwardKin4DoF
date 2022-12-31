@@ -3,7 +3,24 @@
 
     <!-- This is an URDF representation of Simon's 4 DoF manipulator -->
 
-    <xacro:include filename="properties.xacro"/>
+    <material name="blue">
+        <color rgba="0 0 0.8 1"/>
+    </material>
+
+    <material name="green">
+        <color rgba="0 0.8 0 1"/>
+    </material>
+
+    <material name="white">
+        <color rgba="1 1 1 1"/>
+    </material>
+
+    <!-- base_joint (world) -->
+    <joint name="base_joint" type="fixed">
+        <origin xyz="0 0 0" rpy="0 0 0" />
+        <parent link="world" />
+        <child link="base_link" />
+    </joint>
 
     <!-- base_link is a large rectangular plate -->
     <link name="base_link">
@@ -21,9 +38,12 @@
             </geometry>
         </collision>
         <inertial>
+            <!-- Specifies the center of gravity and the inertial reference frame
+            (relative to the link's reference frame) -->
             <origin xyz="0 0 0" rpy="0 0 0" />
-            <mass value="0" />
-            <inertia ixx="" ixy="" ixz="" iyz="" izz="" />
+            <!-- Mass is defined in kilograms -->
+            <mass value="10" />
+            <inertia ixx="" ixy="" ixz="" iyy="" iyz="" izz="" />
         </inertial>
     </link>
     
@@ -43,139 +63,140 @@
     <!-- xacro:property name="arm_radius" value="0.05" / -->
     <link name="a1">
         <visual>
-            <origin xyz="1.5 1.5 0.225" rpy="0 0 0" />
+            <origin xyz="0 0 0.018" rpy="0 0 0" />
             <geometry>
-                <cylinder length="0.36" radius="0.03"/>
+                <cylinder length="0.036" radius="0.01"/>
             </geometry>
-            <material name="blue" />
+            <material name="green" />
         </visual>
         <collision>
             <origin xyz="1.5 1.5 0.225" rpy="0 0 0" />
             <geometry>
-                <cylinder length="0.36" radius="0.03"/>
+                <cylinder length="0.036" radius="0.01"/>
             </geometry>
         </collision>
         <inertial>
-            <origin xyz="0 0 0" rpy="0 0 0" />
-            <mass value="0" />
-            <inertia ixx="" ixy="" ixz="" iyz="" izz="" />
-        <inertial>
+            <mass value="0.5" />
+            <inertia ixx="" ixy="" ixz="" iyy="" iyz="" izz="" />
+        </inertial>
     </link>
+
+    <!-- Fixed joint between a1 and a2 -->
+    <joint name="a1_a2_joint" type="fixed">
+        <origin xyz="0 0 0.076" rpy="0 0 0" />
+        <parent link="base_link" />
+        <child link="a2" />
+    </joint>
 
     <!-- a2 link of the manipulator -->
     <link name="a2">
         <visual>
-            <origin xyz="1.501 1.5 0.35" rpy="0 0 0" />
+            <origin xyz="0.015 0 -0.01" rpy="0 1.57075 0" />
             <geometry>
-                <cylinder length="0.5" radius="0.03"/>
+                <cylinder length="0.05" radius="0.01"/>
             </geometry>
             <material name="blue" />
         </visual>
         <collision>
-            <origin xyz="1.501 1.5 0.35" rpy="0 0 0" />
+            <origin xyz="0.015 0 -0.01" rpy="0 1.57075 0" />
             <geometry>
-                <cylinder length="0.5" radius="0.03"/>
+                <cylinder length="0.05" radius="0.01"/>
             </geometry>
         </collision>
         <inertial>
-            <origin xyz="0 0 0" rpy="0 0 0" />
-            <mass value="0" />
-            <inertia ixx="" ixy="" ixz="" iyz="" izz="" />
-        <inertial>
+            <mass value="0.75" />
+            <inertia ixx="" ixy="" ixz="" iyy="" iyz="" izz="" />
+        </inertial>
     </link>
 
     <!-- theta_2 allows a3 to rotate with respect to a2 -->
     <joint name="theta_2" type="revolute">
-        <origin xyz="1.502 1.5 0.35" rpy="0 0 0" />
+        <origin xyz="0.05 0 0.076" rpy="0 0 0" />
         <parent link="a2" />
         <child link="a3" />
-        <axis xyz="0 0 1" />
+        <axis xyz="0 1 0" />
         <limit lower="-1.57" upper="1.57" velocity="100" effort="100" />
     </joint>
 
     <!-- a3 link of the manipulator -->
     <link name="a3">
         <visual>
-            <origin xyz="1.507 1.5 0.35" rpy="0 0 0" />
+            <origin xyz="-0.02 0 0.1465" rpy="0 0 0" />
             <geometry>
-                <box size="0.1 0.02 0.02" />
+                <cylinder length="0.485" radius="0.01"/>
             </geometry>
-            <material name="blue" />
+            <material name="green" />
         </visual>
         <collision>
-            <origin xyz="1.507 1.5 0.35" rpy="0 0 0" />
+            <origin xyz="-0.02 0 0.1465" rpy="0 0 0" />
             <geometry>
-                <box size="0.1 0.02 0.02" />
+                <cylinder length="0.485" radius="0.01"/>
             </geometry>
         </collision>
         <inertial>
-            <origin xyz="0 0 0" rpy="0 0 0" />
-            <mass value="0" />
-            <inertia ixx="" ixy="" ixz="" iyz="" izz="" />
-        <inertial>
+            <mass value="2.5" />
+            <inertia ixx="" ixy="" ixz="" iyy="" iyz="" izz="" />
+        </inertial>
     </link>
 
     <!-- theta_3 allows a4 to rotate with respect to a3 -->
     <joint name="theta_3" type="revolute">
-        <origin xyz="1.512 1.5 0.35" rpy="0 0 0" />
+        <origin xyz="0.05 0 0.379" rpy="0 0 0" />
         <parent link="a3" />
         <child link="a4" />
-        <!-- How are axes determined? -->
-        <axis xyz="0 0 1" />
-        <limit lower="-1.57" upper="1.57" velocity="100" effort="100" />
+        <axis xyz="0 1 0" />
+        <limit lower="-1.57" upper="1.57" velocity="100" effort="1000.0" />
     </joint>
 
     <!-- a4 link of the manipulator -->
     <link name="a4">
         <visual>
-            <origin xyz="1.537 1.5 0.35" rpy="0 0 0" />    
+            <origin xyz="0.1 0 0" rpy="0 1.57075 0" />    
             <geometry>
-                <box size="0.05 0.02 0.02" />
+                <cylinder length="0.36" radius="0.01"/>
             </geometry>
             <material name="blue" />
         </visual>
         <collision>
-            <origin xyz="1.537 1.5 0.35" rpy="0 0 0" />
+            <origin xyz="0.18 0 0" rpy="0 1.57075 0" />    
             <geometry>
-                <box size="0.05 0.02 0.02" />
+                <cylinder length="0.36" radius="0.01"/>
             </geometry>
         </collision>
         <inertial>
-            <origin xyz="0 0 0" rpy="0 0 0" />
-            <mass value="0" />
-            <inertia ixx="" ixy="" ixz="" iyz="" izz="" />
-        <inertial>
+            <mass value="1.5" />
+            <inertia ixx="" ixy="" ixz="" iyy="" iyz="" izz="" />
+        </inertial>
     </link>
 
     <!-- theta_4 allows a5 to rotate with respect to a4 -->
-    <joint name="theta_3" type="revolute">
-        <origin xyz="1.562 1.5 0.35" rpy="0 0 0" />
+    <joint name="theta_4" type="revolute">
+        <origin xyz="0.32 0 0" rpy="0 0 0" />
         <parent link="a4" />
         <child link="a5" />
         <axis xyz="1 0 0" />
-        <limit lower="-1.57" upper="1.57" velocity="100" effort="100" />
+        <limit lower="-1.57" upper="1.57" velocity="100" effort="1000.0" />
     </joint>
 
     <!-- a5 link of the manipulator -->
     <link name="a5">
         <visual>
-            <origin xyz="1.563 1.5 0.35" rpy="0 0 0" />
+            <origin xyz="0 0 0" rpy="0 1.57075 0" />
             <geometry>
-                <box size="0.02 0.01 0.01" />
+                <cylinder length="0.08" radius="0.01"/>
             </geometry>
-            <material name="blue" />
+            <material name="green" />
         </visual>
         <collision>
-            <origin xyz="1.563 1.5 0.35" rpy="0 0 0" />
+            <origin xyz="0 0 0" rpy="0 1.57075 0" />
             <geometry>
-                <box size="0.02 0.01 0.01" />
+                <cylinder length="0.08" radius="0.01"/>
             </geometry>
         </collision>
         <inertial>
-            <origin xyz="0 0 0" rpy="0 0 0" />
-            <mass value="0" />
-            <inertia ixx="" ixy="" ixz="" iyz="" izz="" />
-        <inertial>
+            <mass value="0.8" />
+            <inertia ixx="" ixy="" ixz="" iyy="" iyz="" izz="" />
+        </inertial>
     </link>
 
 </robot>
