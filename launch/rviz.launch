@@ -3,7 +3,7 @@
 
     <!-- Load the robot's urdf file on parameter server with variable name robot_description.
     Rviz will use this display the robot in visualizer -->
-    <param name="robot_description" textfile="$(find simon_inverse_kin)/ManipulatorKinematics/urdf/simon.urdf" />
+    <param name="robot_description" command="xacro '$(find simon_inverse_kin)/ManipulatorKinematics/urdf/simon.urdf.xacro'" />
 
 
     <arg name="rviz_config_file" default="$(find simon_inverse_kin)/ManipulatorKinematics/config/simon.rviz"/>
