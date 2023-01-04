@@ -5,6 +5,7 @@
 
 
     <xacro:include filename="inertial_macros.xacro"/>
+    <xacro:property name="pi" value="3.1415926535897931" />
 
     <material name="blue">
         <color rgba="0 0 0.8 1"/>
@@ -14,8 +15,8 @@
         <color rgba="0 0.8 0 1"/>
     </material>
 
-    <material name="white">
-        <color rgba="1 1 1 1"/>
+    <material name="grey">
+        <color rgba="0.6 0.6 0.6 1"/>
     </material>
 
     <!-- World link -->
@@ -33,11 +34,11 @@
     <!-- base_link is a large rectangular plate -->
     <link name="base_link">
         <visual>
-            <origin xyz="0 0 0.01" rpy="0 0 0"/>
+            <origin xyz="-0.2 0 0.01" rpy="0 0 0"/>
             <geometry>
                 <box size="1 0.5 0.02"/>
             </geometry>
-            <material name="white" />
+            <material name="grey" />
         </visual>
         <collision>
             <origin xyz="0 0 0.02" rpy="0 0 0"/>
@@ -45,175 +46,171 @@
                 <box size="1 0.5 0.02"/>
             </geometry>
         </collision>
-        <!-- <inertial>
-            <!- Specifies the center of gravity and the inertial reference frame
-            (relative to the link's reference frame) ->
-            <origin xyz="0 0 0" rpy="0 0 0" />
-            <!- Mass is defined in kilograms ->
-            <mass value="10" />
-            <inertia ixx="0.0" ixy="0.0" ixz="0.0" iyy="0.0" iyz="0.0" izz="0.0" />
-        </inertial> -->
     </link>
 
 
-    <!-- Fixed joint between base and a1 -->
-    <joint name="base_a1_joint" type="fixed">
+    <!-- Fixed joint between base and link_1 -->
+    <joint name="base_link_1" type="fixed">
         <origin xyz="0 0 0.02" rpy="0 0 0" />
         <parent link="base_link" />
-        <child link="a1" />
+        <child link="link_1" />
     </joint>
 
 
-    <!-- a1 link of the manipulator -->
-    <!-- xacro:property name="arm_length" value="1" / -->
-    <!-- xacro:property name="arm_radius" value="0.05" / -->
-    <link name="a1">
+    <!-- link_1 -->
+    <xacro:property name="link_length" value="0.036" />
+    <xacro:property name="link_radius" value="0.01" />
+
+    <link name="link_1">
         <visual>
-            <origin xyz="0 0 0.018" rpy="0 0 0" />
+            <origin xyz="0 0 ${link_length/2}" rpy="0 0 0" />
             <geometry>
-                <cylinder length="0.036" radius="0.01"/>
+                <cylinder length="${link_length}" radius="${link_radius}"/>
             </geometry>
             <material name="green" />
         </visual>
         <collision>
-            <origin xyz="0 0 0.018" rpy="0 0 0" />
+            <origin xyz="0 0 ${link_length/2}" rpy="0 0 0" />
             <geometry>
-                <cylinder length="0.036" radius="0.01"/>
+                <cylinder length="${link_length}" radius="${link_radius}"/>
             </geometry>
         </collision>
-        <!-- <inertial>
-            <mass value="0.5" />
-            <inertia ixx="0.0" ixy="0.0" ixz="0.0" iyy="0.0" iyz="0.0" izz="0.0" />
-        </inertial> -->
+        <xacro:inertial_cylinder mass="0.3" length="${link_length}" radius="${link_radius}">
+            <!-- Specifies the center of gravity and the inertial reference frame
+            (relative to the link's reference frame) -->
+            <origin xyz="0 0 ${link_length/2}" rpy="0 0 0" />
+        </xacro:inertial_cylinder>
     </link>
 
 
-    <!-- theta_1 allows a1 to rotate with respect to base_link -->
-    <!-- - Origin is set ot one of the top edges of the base_link box, so that our link skims across -->
-    <!-- - It moves along the z axis -->
+    <!-- theta_1 allows link_1 to rotate with respect to base_link -->
     <joint name="theta_1" type="revolute">
-        <origin xyz="0 0 0.036" rpy="0 0 0" />
-        <parent link="a1" />
-        <child link="a2" />
+        <origin xyz="0 0 ${link_length}" rpy="0 0 0" />
+        <parent link="link_1" />
+        <child link="link_2" />
         <axis xyz="0 0 1" />
-        <limit lower="-1.57" upper="1.57" velocity="100" effort="1000.0" />
+        <limit lower="-${pi/2}" upper="${pi/2}" velocity="100" effort="1000.0" />
     </joint>
 
 
-    <!-- a2 link of the manipulator -->
-    <link name="a2">
+    <!-- link_2 -->
+    <xacro:property name="link_length" value="0.05" />
+
+    <link name="link_2">
         <visual>
-            <origin xyz="0.025 0 0" rpy="0 1.57075 0" />
+            <origin xyz="${link_length/2} 0 0" rpy="0 ${pi/2} 0" />
             <geometry>
-                <cylinder length="0.05" radius="0.01"/>
+                <cylinder length="${link_length}" radius="${link_radius}"/>
             </geometry>
             <material name="blue" />
         </visual>
         <collision>
-            <origin xyz="0.025 0 0" rpy="0 1.57075 0" />
+            <origin xyz="${link_length/2} 0 0" rpy="0 ${pi/2} 0" />
             <geometry>
-                <cylinder length="0.05" radius="0.01"/>
+                <cylinder length="${link_length}" radius="${link_radius}"/>
             </geometry>
         </collision>
-        <!-- <inertial>
-            <mass value="0.75" />
-            <inertia ixx="0.0" ixy="0.0" ixz="0.0" iyy="0.0" iyz="0.0" izz="0.0" />
-        </inertial> -->
+        <xacro:inertial_cylinder mass="0.4" length="${link_length}" radius="${link_radius}">
+            <origin xyz="${link_length/2} 0 0" rpy="0 ${pi/2} 0" />
+        </xacro:inertial_cylinder>
     </link>
 
 
-    <!-- theta_2 allows a3 to rotate with respect to a2 -->
+    <!-- theta_2 allows link_3 to rotate with respect to link_2 -->
     <joint name="theta_2" type="revolute">
-        <origin xyz="0.05 0 0" rpy="0 0 0" />
-        <parent link="a2" />
-        <child link="a3" />
+        <origin xyz="${link_length} 0 0" rpy="0 0 0" />
+        <parent link="link_2" />
+        <child link="link_3" />
         <axis xyz="0 1 0" />
-        <limit lower="-1" upper="1.57" velocity="100" effort="100" />
+        <limit lower="-1" upper="${pi/2}" velocity="100" effort="100" />
     </joint>
 
 
-    <!-- a3 link of the manipulator -->
-    <link name="a3">
+    <!-- link_3 -->
+    <xacro:property name="link_length" value="0.485" />
+
+    <link name="link_3">
         <visual>
-            <origin xyz="0 0 0.2425" rpy="0 0 0" />
+            <origin xyz="0 0 ${link_length/2}" rpy="0 0 0" />
             <geometry>
-                <cylinder length="0.485" radius="0.01"/>
+                <cylinder length="${link_length}" radius="${link_radius}"/>
             </geometry>
             <material name="green" />
         </visual>
         <collision>
-            <origin xyz="0 0 0.2425" rpy="0 0 0" />
+            <origin xyz="0 0 ${link_length/2}" rpy="0 0 0" />
             <geometry>
-                <cylinder length="0.485" radius="0.01"/>
+                <cylinder length="${link_length}" radius="${link_radius}"/>
             </geometry>
         </collision>
-        <!-- <inertial>
-            <mass value="2.5" />
-            <inertia ixx="0.0" ixy="0.0" ixz="0.0" iyy="0.0" iyz="0.0" izz="0.0" />
-        </inertial> -->
+        <xacro:inertial_cylinder mass="1" length="${link_length}" radius="${link_radius}">
+            <origin xyz="0 0 ${link_length/2}" rpy="0 0 0" />
+        </xacro:inertial_cylinder>
     </link>
 
 
-    <!-- theta_3 allows a4 to rotate with respect to a3 -->
+    <!-- theta_3 allows link_4 to rotate with respect to link_3 -->
     <joint name="theta_3" type="revolute">
-        <origin xyz="0 0 0.485" rpy="0 0 0" />
-        <parent link="a3" />
-        <child link="a4" />
+        <origin xyz="0 0 ${link_length}" rpy="0 0 0" />
+        <parent link="link_3" />
+        <child link="link_4" />
         <axis xyz="0 1 0" />
-        <limit lower="-1.57" upper="1" velocity="100" effort="1000.0" />
+        <limit lower="-${pi/2}" upper="1" velocity="100" effort="1000.0" />
     </joint>
 
 
-    <!-- a4 link of the manipulator -->
-    <link name="a4">
+    <!-- link_4 -->
+    <xacro:property name="link_length" value="0.36" />
+
+    <link name="link_4">
         <visual>
-            <origin xyz="0.18 0 0" rpy="0 1.57075 0" />    
+            <origin xyz="${link_length/2} 0 0" rpy="0 ${pi/2} 0" />    
             <geometry>
-                <cylinder length="0.36" radius="0.01"/>
+                <cylinder length="${link_length}" radius="${link_radius}"/>
             </geometry>
             <material name="blue" />
         </visual>
         <collision>
-            <origin xyz="0.18 0 0" rpy="0 1.57075 0" />    
+            <origin xyz="${link_length/2} 0 0" rpy="0 ${pi/2} 0" />    
             <geometry>
-                <cylinder length="0.36" radius="0.01"/>
+                <cylinder length="${link_length}" radius="${link_radius}"/>
             </geometry>
         </collision>
-        <!-- <inertial>
-            <mass value="1.5" />
-            <inertia ixx="0.0" ixy="0.0" ixz="0.0" iyy="0.0" iyz="0.0" izz="0.0" />
-        </inertial> -->
+        <xacro:inertial_cylinder mass="0.75" length="${link_length}" radius="${link_radius}">
+            <origin xyz="${link_length/2} 0 0" rpy="0 ${pi/2} 0" />
+        </xacro:inertial_cylinder>
     </link>
 
 
-    <!-- theta_4 allows a5 to rotate with respect to a4 -->
+    <!-- theta_4 allows link_5 to rotate with respect to link_4 -->
     <joint name="theta_4" type="continuous">
-        <origin xyz="0.36 0 0" rpy="0 0 0" />
-        <parent link="a4" />
-        <child link="a5" />
+        <origin xyz="${link_length} 0 0" rpy="0 0 0" />
+        <parent link="link_4" />
+        <child link="link_5" />
         <axis xyz="1 0 0" />
     </joint>
 
 
-    <!-- a5 link of the manipulator -->
-    <link name="a5">
+    <!-- link_5 -->
+    <xacro:property name="link_length" value="0.08" />
+
+    <link name="link_5">
         <visual>
-            <origin xyz="0.04 0 0" rpy="0 1.57075 0" />
+            <origin xyz="${link_length/2} 0 0" rpy="0 ${pi/2} 0" />
             <geometry>
-                <cylinder length="0.08" radius="0.01"/>
+                <cylinder length="${link_length}" radius="${link_radius}"/>
             </geometry>
             <material name="green" />
         </visual>
         <collision>
-            <origin xyz="0.04 0 0" rpy="0 1.57075 0" />
+            <origin xyz="${link_length/2} 0 0" rpy="0 ${pi/2} 0" />
             <geometry>
-                <cylinder length="0.08" radius="0.01"/>
+                <cylinder length="${link_length}" radius="${link_radius}"/>
             </geometry>
         </collision>
-        <!-- <inertial>
-            <mass value="0.8" />
-            <inertia ixx="0.0" ixy="0.0" ixz="0.0" iyy="0.0" iyz="0.0" izz="0.0" />
-        </inertial> -->
+        <xacro:inertial_cylinder mass="0.4" length="${link_length}" radius="${link_radius}">
+            <origin xyz="${link_length/2} 0 0" rpy="0 ${pi/2} 0" />
+        </xacro:inertial_cylinder>
     </link>
 
 </robot>
