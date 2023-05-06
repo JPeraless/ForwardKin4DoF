@@ -1,1 +1,1 @@
-# Simulation for the Schulich Space Rover Team's rover robot
+# Simulation for the SSRT's rover robot
