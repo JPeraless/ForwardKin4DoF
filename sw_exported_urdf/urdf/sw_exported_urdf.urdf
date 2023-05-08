@@ -3,7 +3,15 @@
      Commit Version: 1.6.0-4-g7f85cfe  Build Version: 1.6.7995.38578
      For more information, please see http://wiki.ros.org/sw_urdf_exporter -->
 <robot
-  name="ARM ASSEMBLY">
+  name="sw_exported_urdf">
+  
+  <link name="world"/>
+  <joint name="base_joint" type="fixed">
+  	<parent link="world"/>
+  	<child link="base_link"/>
+  	<origin rpy="0 0 0" xyz="0.0 0.0 0.15"/>
+  </joint>
+  
   <link
     name="base_link">
     <inertial>
@@ -26,7 +34,7 @@
         rpy="0 0 0" />
       <geometry>
         <mesh
-          filename="package://ARM ASSEMBLY/meshes/base_link.STL" />
+          filename="package://sw_exported_urdf/meshes/base_link.STL" />
       </geometry>
       <material
         name="">
@@ -40,7 +48,7 @@
         rpy="0 0 0" />
       <geometry>
         <mesh
-          filename="package://ARM ASSEMBLY/meshes/base_link.STL" />
+          filename="package://sw_exported_urdf/meshes/base_link.STL" />
       </geometry>
     </collision>
   </link>
@@ -66,7 +74,7 @@
         rpy="0 0 0" />
       <geometry>
         <mesh
-          filename="package://ARM ASSEMBLY/meshes/link_1.STL" />
+          filename="package://sw_exported_urdf/meshes/link_1.STL" />
       </geometry>
       <material
         name="">
@@ -80,7 +88,7 @@
         rpy="0 0 0" />
       <geometry>
         <mesh
-          filename="package://ARM ASSEMBLY/meshes/link_1.STL" />
+          filename="package://sw_exported_urdf/meshes/link_1.STL" />
       </geometry>
     </collision>
   </link>
@@ -97,8 +105,8 @@
     <axis
       xyz="0 1 0" />
     <limit
-      lower="0"
-      upper="6.284"
+      lower="2.55"
+      upper="5.7280"
       effort="300"
       velocity="3" />
   </joint>
@@ -124,7 +132,7 @@
         rpy="0 0 0" />
       <geometry>
         <mesh
-          filename="package://ARM ASSEMBLY/meshes/link_2.STL" />
+          filename="package://sw_exported_urdf/meshes/link_2.STL" />
       </geometry>
       <material
         name="">
@@ -138,7 +146,7 @@
         rpy="0 0 0" />
       <geometry>
         <mesh
-          filename="package://ARM ASSEMBLY/meshes/link_2.STL" />
+          filename="package://sw_exported_urdf/meshes/link_2.STL" />
       </geometry>
     </collision>
   </link>
@@ -155,8 +163,8 @@
     <axis
       xyz="0 -1 0" />
     <limit
-      lower="0"
-      upper="3.142"
+      lower="-0.35"
+      upper="3.5340"
       effort="200"
       velocity="3" />
   </joint>
@@ -182,7 +190,7 @@
         rpy="0 0 0" />
       <geometry>
         <mesh
-          filename="package://ARM ASSEMBLY/meshes/link_3.STL" />
+          filename="package://sw_exported_urdf/meshes/link_3.STL" />
       </geometry>
       <material
         name="">
@@ -196,7 +204,7 @@
         rpy="0 0 0" />
       <geometry>
         <mesh
-          filename="package://ARM ASSEMBLY/meshes/link_3.STL" />
+          filename="package://sw_exported_urdf/meshes/link_3.STL" />
       </geometry>
     </collision>
   </link>
@@ -213,8 +221,8 @@
     <axis
       xyz="1 0 0" />
     <limit
-      lower="-4.713"
-      upper="0"
+      lower="-0.0488"
+      upper="5.2280"
       effort="200"
       velocity="3" />
   </joint>
@@ -240,7 +248,7 @@
         rpy="0 0 0" />
       <geometry>
         <mesh
-          filename="package://ARM ASSEMBLY/meshes/link_4.STL" />
+          filename="package://sw_exported_urdf/meshes/link_4.STL" />
       </geometry>
       <material
         name="">
@@ -254,7 +262,7 @@
         rpy="0 0 0" />
       <geometry>
         <mesh
-          filename="package://ARM ASSEMBLY/meshes/link_4.STL" />
+          filename="package://sw_exported_urdf/meshes/link_4.STL" />
       </geometry>
     </collision>
   </link>
@@ -271,8 +279,8 @@
     <axis
       xyz="0 1 0" />
     <limit
-      lower="0"
-      upper="6.284"
+      lower="-3.142"
+      upper="3.142"
       effort="200"
       velocity="3" />
   </joint>
@@ -298,7 +306,7 @@
         rpy="0 0 0" />
       <geometry>
         <mesh
-          filename="package://ARM ASSEMBLY/meshes/link_5.STL" />
+          filename="package://sw_exported_urdf/meshes/link_5.STL" />
       </geometry>
       <material
         name="">
@@ -312,7 +320,7 @@
         rpy="0 0 0" />
       <geometry>
         <mesh
-          filename="package://ARM ASSEMBLY/meshes/link_5.STL" />
+          filename="package://sw_exported_urdf/meshes/link_5.STL" />
       </geometry>
     </collision>
   </link>
@@ -329,8 +337,8 @@
     <axis
       xyz="-1 0 0" />
     <limit
-      lower="0"
-      upper="3.142"
+      lower="-3.764"
+      upper="0.6419"
       effort="200"
       velocity="3" />
   </joint>
@@ -356,7 +364,7 @@
         rpy="0 0 0" />
       <geometry>
         <mesh
-          filename="package://ARM ASSEMBLY/meshes/link_6.STL" />
+          filename="package://sw_exported_urdf/meshes/link_6.STL" />
       </geometry>
       <material
         name="">
@@ -370,7 +378,7 @@
         rpy="0 0 0" />
       <geometry>
         <mesh
-          filename="package://ARM ASSEMBLY/meshes/link_6.STL" />
+          filename="package://sw_exported_urdf/meshes/link_6.STL" />
       </geometry>
     </collision>
   </link>
@@ -387,13 +395,13 @@
     <axis
       xyz="0 0 -1" />
     <limit
-      lower="0"
-      upper="6.284"
+      lower="-3.142"
+      upper="3.142"
       effort="200"
       velocity="3" />
   </joint>
   <link
-    name="gripper_1">
+    name="link_gripper_1">
     <inertial>
       <origin
         xyz="0.038885 0.012049 0.01255"
@@ -414,7 +422,7 @@
         rpy="0 0 0" />
       <geometry>
         <mesh
-          filename="package://ARM ASSEMBLY/meshes/gripper_1.STL" />
+          filename="package://sw_exported_urdf/meshes/gripper_1.STL" />
       </geometry>
       <material
         name="">
@@ -428,12 +436,12 @@
         rpy="0 0 0" />
       <geometry>
         <mesh
-          filename="package://ARM ASSEMBLY/meshes/gripper_1.STL" />
+          filename="package://sw_exported_urdf/meshes/gripper_1.STL" />
       </geometry>
     </collision>
   </link>
   <joint
-    name="gripper_1"
+    name="joint_gripper_1"
     type="prismatic">
     <origin
       xyz="0.00037333 -0.008425 -0.064"
@@ -441,7 +449,7 @@
     <parent
       link="link_6" />
     <child
-      link="gripper_1" />
+      link="link_gripper_1" />
     <axis
       xyz="-1 0 0" />
     <limit
@@ -451,7 +459,7 @@
       velocity="3" />
   </joint>
   <link
-    name="gripper_2">
+    name="link_gripper_2">
     <inertial>
       <origin
         xyz="0.047513 0.011323 0.011862"
@@ -472,7 +480,7 @@
         rpy="0 0 0" />
       <geometry>
         <mesh
-          filename="package://ARM ASSEMBLY/meshes/gripper_2.STL" />
+          filename="package://sw_exported_urdf/meshes/gripper_2.STL" />
       </geometry>
       <material
         name="">
@@ -486,12 +494,12 @@
         rpy="0 0 0" />
       <geometry>
         <mesh
-          filename="package://ARM ASSEMBLY/meshes/gripper_2.STL" />
+          filename="package://sw_exported_urdf/meshes/gripper_2.STL" />
       </geometry>
     </collision>
   </link>
   <joint
-    name="gripper_2"
+    name="joint_gripper_2"
     type="prismatic">
     <origin
       xyz="-0.012 0.007575 -0.064"
@@ -499,7 +507,7 @@
     <parent
       link="link_6" />
     <child
-      link="gripper_2" />
+      link="link_gripper_2" />
     <axis
       xyz="1 0 0" />
     <limit
@@ -508,4 +516,150 @@
       effort="100"
       velocity="3" />
   </joint>
+  
+	<transmission name="link_1_trans">
+		<type>transmission_interface/SimpleTransmission</type>
+		<joint name="joint_1">
+		
+		<hardwareInterface>hardware_interface/PositionJointInterface</hardwareInterface>
+		</joint>
+		<actuator name="link_1_motor">
+		
+		<hardwareInterface>hardware_interface/PositionJointInterface</hardwareInterface>
+			<mechanicalReduction>1</mechanicalReduction>
+		</actuator>
+	</transmission>
+	
+	<transmission name="link_2_trans">
+		<type>transmission_interface/SimpleTransmission</type>
+		<joint name="joint_2">
+		
+		<hardwareInterface>hardware_interface/PositionJointInterface</hardwareInterface>
+		</joint>
+		<actuator name="link_2_motor">
+		
+		<hardwareInterface>hardware_interface/PositionJointInterface</hardwareInterface>
+			<mechanicalReduction>1</mechanicalReduction>
+		</actuator>
+	</transmission>
+	
+	<transmission name="link_3_trans">
+		<type>transmission_interface/SimpleTransmission</type>
+		<joint name="joint_3">
+		
+		<hardwareInterface>hardware_interface/PositionJointInterface</hardwareInterface>
+		</joint>
+		<actuator name="link_3_motor">
+		
+		<hardwareInterface>hardware_interface/PositionJointInterface</hardwareInterface>
+			<mechanicalReduction>1</mechanicalReduction>
+		</actuator>
+	</transmission>
+  
+  <transmission name="link_4_trans">
+		<type>transmission_interface/SimpleTransmission</type>
+		<joint name="joint_4">
+		
+		<hardwareInterface>hardware_interface/PositionJointInterface</hardwareInterface>
+		</joint>
+		<actuator name="link_4_motor">
+		
+		<hardwareInterface>hardware_interface/PositionJointInterface</hardwareInterface>
+			<mechanicalReduction>1</mechanicalReduction>
+		</actuator>
+	</transmission>
+	
+	<transmission name="link_5_trans">
+		<type>transmission_interface/SimpleTransmission</type>
+		<joint name="joint_5">
+		
+		<hardwareInterface>hardware_interface/PositionJointInterface</hardwareInterface>
+		</joint>
+		<actuator name="link_5_motor">
+		
+		<hardwareInterface>hardware_interface/PositionJointInterface</hardwareInterface>
+			<mechanicalReduction>1</mechanicalReduction>
+		</actuator>
+	</transmission>
+	
+	<transmission name="link_6_trans">
+		<type>transmission_interface/SimpleTransmission</type>
+		<joint name="joint_6">
+		
+		<hardwareInterface>hardware_interface/PositionJointInterface</hardwareInterface>
+		</joint>
+		<actuator name="link_6_motor">
+		
+		<hardwareInterface>hardware_interface/PositionJointInterface</hardwareInterface>
+			<mechanicalReduction>1</mechanicalReduction>
+		</actuator>
+	</transmission>
+	
+	<transmission name="link_gripper_1_trans">
+		<type>transmission_interface/SimpleTransmission</type>
+		<joint name="joint_gripper_1">
+		
+		<hardwareInterface>hardware_interface/PositionJointInterface</hardwareInterface>
+		</joint>
+		<actuator name="link_gripper_1_motor">
+		
+		<hardwareInterface>hardware_interface/PositionJointInterface</hardwareInterface>
+			<mechanicalReduction>1</mechanicalReduction>
+		</actuator>
+	</transmission>
+	
+	<transmission name="link_gripper_2_trans">
+		<type>transmission_interface/SimpleTransmission</type>
+		<joint name="joint_gripper_2">
+		
+		<hardwareInterface>hardware_interface/PositionJointInterface</hardwareInterface>
+		</joint>
+		<actuator name="link_gripper_2_motor">
+		
+		<hardwareInterface>hardware_interface/PositionJointInterface</hardwareInterface>
+			<mechanicalReduction>1</mechanicalReduction>
+		</actuator>
+	</transmission>
+  
+  
+  <gazebo>
+  	<plugin name="control" filename="libgazebo_ros_control.so">
+  		<robotNamespace>/</robotNamespace>
+  	</plugin>
+  </gazebo>
+  
+  
+  <gazebo reference="link_1">
+  	<selfCollide>true</selfCollide>
+  </gazebo>
+  
+  <gazebo reference="link_2">
+  	<selfCollide>true</selfCollide>
+  </gazebo>
+  
+  <gazebo reference="link_3">
+  	<selfCollide>true</selfCollide>
+  </gazebo>
+  
+  <gazebo reference="link_4">
+  	<selfCollide>true</selfCollide>
+  </gazebo>
+  
+  <gazebo reference="link_5">
+  	<selfCollide>true</selfCollide>
+  </gazebo>
+  
+  <gazebo reference="link_6">
+  	<selfCollide>true</selfCollide>
+  </gazebo>
+  
+  <gazebo reference="link_gripper_1">
+  	<selfCollide>true</selfCollide>
+  </gazebo>
+  
+  <gazebo reference="link_gripper_2">
+  	<selfCollide>true</selfCollide>
+  </gazebo>
+  
+  
 </robot>
