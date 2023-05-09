@@ -1,0 +1,11 @@
+moveit_setup_assistant_config:
+  URDF:
+    package: sw_exported_urdf
+    relative_path: urdf/sw_exported_urdf.urdf
+    xacro_args: ""
+  SRDF:
+    relative_path: config/sw_exported_urdf.srdf
+  CONFIG:
+    author_name: Jose Perales
+    author_email: jperales@email.com
+    generated_timestamp: 1683574461

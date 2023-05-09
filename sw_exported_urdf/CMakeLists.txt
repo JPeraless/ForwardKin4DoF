@@ -11,7 +11,6 @@ find_package(catkin REQUIRED COMPONENTS
 	urdf
 	xacro
 	message_generation
-	joint_trajectory_controller
 )
 
 catkin_package(CATKIN_DEPENDS
@@ -19,7 +18,6 @@ catkin_package(CATKIN_DEPENDS
 	roscpp
 	rospy
 	std_msgs
-	joint_trajectory_controller
 )
 
 find_package(roslaunch)
