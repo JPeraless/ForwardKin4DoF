@@ -1,0 +1,17 @@
+controller_list:
+  - name: fake_simon_eef_controller
+    type: $(arg fake_execution_type)
+    joints:
+      - theta_4
+  - name: fake_simon_arm_controller
+    type: $(arg fake_execution_type)
+    joints:
+      - theta_1
+      - theta_2
+      - theta_3
+      - theta_4
+initial:  # Define initial robot poses per group
+#  - group: simon_eef
+#    pose: home
+
+  []

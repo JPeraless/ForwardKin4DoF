@@ -1,0 +1,11 @@
+moveit_setup_assistant_config:
+  URDF:
+    package: simon_moveit_config
+    relative_path: config/simon.urdf.xacro
+    xacro_args: ""
+  SRDF:
+    relative_path: config/simon.srdf
+  CONFIG:
+    author_name: Jose Perales
+    author_email: jalfperi@gmail.com
+    generated_timestamp: 1673313609
