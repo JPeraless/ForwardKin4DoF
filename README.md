@@ -3,6 +3,7 @@
 - Install Ubuntu 20.04
 - Install ROS Noetic (full version)
 - Install MoveIt (by completing the tutorial at https://ros-planning.github.io/moveit_tutorials/doc/getting_started/getting_started.html)
+- sudo apt-get install ros-noetic-joint-trajectory-controller
 - source ~/ws_moveit/devel/setup.bash
 - cd ws_moveit/src
 - git clone https://github.com/JPeraless/rover-simulation.git
